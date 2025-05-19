@@ -1,11 +1,8 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/DaO0-MBc)
 
-# Aluno: Tiago Cargnin Morandi
-# Programação Orientada a Objetos
-
+# Aluno: **Tiago Cargnin Morandi**
 # Lista 3: Diagramas de classe
-
-# Sistema de Login
+## Sistema de Login
 
 Este projeto simula um sistema de login simples utilizando Java. A aplicação permite o cadastro, remoção, listagem e autenticação de usuários, com base em login e senha. O login é tratado de forma insensível a maiúsculas/minúsculas.
 
