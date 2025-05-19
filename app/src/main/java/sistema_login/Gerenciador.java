@@ -3,17 +3,15 @@ import java.util.*;
 
 public class Gerenciador{
 
-    private static List<Usuario> user = new ArrayList<Usuario>();
-    private static int contador;
+    private static List<Usuario> user = new ArrayList<Usuario>(); // Cria uma lista de usuários;
     
+
     // Adiciona apenas se o usuario não existe na lista;
     public static void cadastroUser(Usuario user0){
         if(!verificaUser(user0)){
             user.add(user0);
-            contador++;
-
+            
             System.out.println("Adicionado com sucesso!");
-            System.out.println(contador);
             
         } else System.out.println("Este usuário já foi adicionado!");
         
@@ -29,7 +27,7 @@ public class Gerenciador{
         return false;
     }
     
-    
+    // Percorre toda a lista de usuários e imprime todos os logins;
     public static void listUsers(){
         String usuarios;
         for(int i = 0; i < user.size(); i++){
@@ -37,7 +35,33 @@ public class Gerenciador{
             System.out.println(usuarios);
         }
     }
+    // Percorre toda a lista de usuários, verifica se o login testado já existe e o remove;
+    public static void removeUser(String login){
+        for(int i = 0; i < user.size(); i++){
+            if(user.get(i).getLogin().equals(login)){
+                user.remove(i);
+                System.out.println("Removido com sucesso!");
+                return;
+            }
+        }
+        System.out.println("Este usuário não existe!");
+
     }
+    // Mesma lógica do removeUser, mas não remove o usuário, apenas verifica se existe aquele login e senha, e retorna true ou false;
+    public static boolean autenticatorUser(String login, String senha){
+        for(int i = 0; i < user.size(); i++){
+            if(user.get(i).getLogin().equals(login) && user.get(i).getSenha().equals(senha)){
+                System.out.println("Conta logado com sucesso!");
+                return true;
+            }
+        }
+                System.out.println("Senha/Login incorretos!");
+                return false;
+        }
+    }
+    
+
+    
 
 
     
