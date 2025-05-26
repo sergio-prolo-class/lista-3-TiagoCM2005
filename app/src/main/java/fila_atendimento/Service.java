@@ -12,6 +12,7 @@ public class Service {
     private static List<Request> atendidos = new ArrayList<>(); // Lista de pedidos atendidos
     private static List<Client> clientes = new ArrayList<>(); // Lista de clientes
 
+    // Função auxiliar para procurar um cliente pelo número
     public static Client procuraCliente(String number){
         for(Client x : clientes){
             if(x.getNumber().equals(number)){
@@ -21,11 +22,12 @@ public class Service {
         return null; // Retorna null se o cliente não for encontrado
     }
     
+    // Registra um novo pedido ou atualiza o existente
     public static void registroPedidos(String nome, String numero, String descricao, int tipo_atendimento){
-        numero = numero.trim(); 
-        Client cliente = procuraCliente(numero);
+        numero = numero.trim(); // ajusta o número de telefone para remover espaços em branco 
+        Client cliente = procuraCliente(numero); // Procura o cliente pelo número de telefone
         if(cliente == null){
-            cliente = new Client(nome, numero);
+            cliente = new Client(nome, numero); // Caso o cliente seja novo, cria um novo objeto Client
             clientes.add(cliente);
         }
         Request pedido = new Request(descricao, tipo_atendimento);
@@ -34,30 +36,50 @@ public class Service {
 
         System.out.println("Pedido registrado com sucesso!");
     }
-
+    
+    // Lista todos os números de telefone dos clientes cadastrados
     public static void listNumbers(){
         for(Client x : clientes){
             System.out.println(x.getNumber());
         }
     }
-
-    public static void atendimentoCliente(){ 
+    
+    // Returna o próximo cliente na fila sem removê-lo
+    public static void nextCliente(){ 
         if(fila.isEmpty()){
             System.out.println("Nenhum pedido na fila.");
             return;
         }
         
-        Request next = fila.peek(); // Recebe o próximo pedido na fila
-        atendidos.add(next); // Adiciona o pedido à lista de atendidos
-        System.out.println("Atendendo: " + next.getDescricao() + " - Categoria: " + next.getCategoria());
+        Request next_pedido = fila.peek(); // Recebe o próximo pedido na fila
+        for (Client c : clientes) {
+            if (c.getSolicitacao().contains(next_pedido)) {
+                System.out.println("Próximo cliente: " + c.getNome());
+                return;
+            }
+        }
+        System.out.println("Cliente não encontrado.");
     }
-    // Lista todos os pedidos atendidos;
+
+    // Atende o próximo cliente na fila, removendo-o da fila e adicionando à lista de atendidos
+    public static void atenderCliente(){ 
+        if(fila.isEmpty()){
+            System.out.println("Nenhum cliente na fila.");
+            return;
+        }
+        
+        Request pedido_atual = fila.poll(); // Recebe o próximo pedido na fila e o remove da fila
+        atendidos.add(pedido_atual); // Adiciona o pedido à lista de atendidos
+        System.out.println("Atendendo: " + pedido_atual.getDescricao() + " - Categoria: " + pedido_atual.getCategoria());
+    }
+
+    // Lista todos os pedidos atendidos
     public static void pedidosAtendidos(){
         if(atendidos.isEmpty()){
             System.out.println("Nenhum pedido atendido.");
             return;
         }
-        
+        // Se um pedido faz parte desta lista, que dizer que ele já foi atendido.
         for(Request x : atendidos){
             System.out.println("Pedido: " + x.getDescricao() + " - Categoria: " + x.getCategoria());
         }
