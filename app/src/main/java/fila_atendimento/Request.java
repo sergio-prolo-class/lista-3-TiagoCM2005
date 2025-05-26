@@ -7,6 +7,10 @@ public class Request {
     public Request(String descricao, int tipo_atendimento){
         this.descricao = descricao;
         this.categoria = formatService(tipo_atendimento);
+
+        if (this.categoria == null) {
+            throw new IllegalArgumentException("Tipo de atendimento inválido");
+        }
     }
 
      private String formatService(int tipo_atendimento){

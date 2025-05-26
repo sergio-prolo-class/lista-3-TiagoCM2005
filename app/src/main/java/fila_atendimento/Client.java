@@ -24,20 +24,24 @@ public class Client {
     }
 
     private String formatNumber(String numero){
-        int len = numero.length();
-        if(numero == null || numero.isEmpty() || len > 9){
-            System.out.println("Número inválido!");
+        
+        if(numero == null || numero.isEmpty() || numero.length() > 9){
+            throw new IllegalArgumentException("Número inválido");
         }
 
-        return numero;
+        return numero.trim();
     }
 
-    public void setRequest(String description, int request){
-        Request pedido = new Request(description, request);
-        solicitacao.add(pedido);
+    // Cada cliente pode ter vários pedidos, todos adicionados à lista solicitacao
+    public void addRequest(String description, int type){
+        Request pedido = new Request(description, type);
+        solicitacao.add(pedido); // solicitação é uma lista de pedidos
     }
 
-
+    // Retorna a lista de pedidos do cliente
+    public List<Request> getSolicitacao(){ 
+        return this.solicitacao;
+    }
     public String getNome(){
         return this.nome;
     }
