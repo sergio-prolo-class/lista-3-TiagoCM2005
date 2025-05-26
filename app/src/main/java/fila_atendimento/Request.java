@@ -2,7 +2,6 @@ package fila_atendimento;
 
 public class Request {
     private String descricao;
-    private int tipo_atendimento;
     private String categoria ;
 
     public Request(String descricao, int tipo_atendimento){
