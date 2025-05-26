@@ -1,15 +1,18 @@
 package fila_atendimento;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+
 
 public class Service {
     private static Queue<Request> fila = new LinkedList<>(); // Fila de espera
     private static List<Request> atendidos = new ArrayList<>(); // Lista de pedidos atendidos
     private static List<Client> clientes = new ArrayList<>(); // Lista de clientes
 
-    public static Client seachClient(String number){
+    public static Client procuraCliente(String number){
         for(Client x : clientes){
             if(x.getNumber().equals(number)){
                 return x;
@@ -18,10 +21,9 @@ public class Service {
         return null; // Retorna null se o cliente não for encontrado
     }
     
-    public static void registerRequest(String nome, String numero, String descricao, int tipo_atendimento){
-        
+    public static void registroPedidos(String nome, String numero, String descricao, int tipo_atendimento){
         numero = numero.trim(); 
-        Client cliente = seachClient(numero);
+        Client cliente = procuraCliente(numero);
         if(cliente == null){
             cliente = new Client(nome, numero);
             clientes.add(cliente);
@@ -39,7 +41,7 @@ public class Service {
         }
     }
 
-    public static void meetClient(){ 
+    public static void atendimentoCliente(){ 
         if(fila.isEmpty()){
             System.out.println("Nenhum pedido na fila.");
             return;
@@ -49,8 +51,8 @@ public class Service {
         atendidos.add(next); // Adiciona o pedido à lista de atendidos
         System.out.println("Atendendo: " + next.getDescricao() + " - Categoria: " + next.getCategoria());
     }
-
-    public static void listAttendedRequests(){
+    // Lista todos os pedidos atendidos;
+    public static void pedidosAtendidos(){
         if(atendidos.isEmpty()){
             System.out.println("Nenhum pedido atendido.");
             return;
@@ -60,6 +62,63 @@ public class Service {
             System.out.println("Pedido: " + x.getDescricao() + " - Categoria: " + x.getCategoria());
         }
     }
+    // Lista todos os pedidos pendentes de atendimento;
+    public static void pedidosPendentes(){
+        
+        Set<String> telefones = new HashSet<>();
 
-    
+        if(fila.isEmpty()){
+            System.out.println("Nenhum pedido pendente.");
+            return;
+        }
+
+        for(Request y : fila){
+            for(Client x : clientes){
+                if(x.getSolicitacao().contains(y)){
+                    telefones.add(x.getNumber());
+                }
+            }
+        }
+
+        System.out.println("Pedidos pendentes de atendimento:");
+        for(String t : telefones){
+            System.out.println("Telefone: " + t);
+        }
+        
+        
+    }
+
+    public static void getRelatorio(){
+
+        int total = fila.size() + atendidos.size();
+        int suporte = 0, info = 0, financeiro = 0;
+
+        List<Request> all = new ArrayList<>(fila);
+        all.addAll(atendidos);
+
+        for(Request r : all){
+            switch (r.getCategoria()) {
+                case "Suporte Técnico":
+                    suporte++;
+                    break;
+                case "Informação":
+                    info++;
+                    break;
+                case "Atendimento Financeiro":
+                    financeiro++;
+                    break;
+
+            }
+        }
+        System.out.println("\n----- RELATÓRIO -----");
+        System.out.println("Total de solicitações: " + total);
+        System.out.println("Solicitações atendidas: " + atendidos.size());
+        System.out.println("Solicitações em espera: " + fila.size());
+
+        if (total > 0) {
+            System.out.printf("Suporte Técnico: %.2f%%\n", (suporte * 100.0 / total));
+            System.out.printf("Informação: %.2f%%\n", (info * 100.0 / total));
+            System.out.printf("Atendimento Financeiro: %.2f%%\n", (financeiro * 100.0 / total));
+        }
+    }
 }
