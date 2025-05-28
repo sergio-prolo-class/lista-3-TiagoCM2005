@@ -34,3 +34,38 @@ Este projeto simula um sistema de login simples utilizando Java. A aplicação p
   - Verifica se o login e senha informados correspondem a um usuário existente.
 
 ---
+
+# Sistema de Fila de Atendimento
+
+Este projeto implementa um sistema de gerenciamento de fila de atendimento em Java, permitindo o registro de clientes, solicitações de atendimento e geração de relatórios.
+
+## Funcionalidades
+
+- **Registro de Clientes e Pedidos**:
+  - Cadastro de novos clientes com nome e número de telefone.
+  - Adição de pedidos de atendimento com descrição e tipo (Suporte Técnico, Informação, Atendimento Financeiro).
+
+- **Gestão da Fila de Atendimento**:
+  - Visualização do próximo cliente na fila.
+  - Atendimento de clientes, movendo pedidos da fila para a lista de atendidos.
+  - Listagem de pedidos pendentes e atendidos.
+
+- **Relatórios**:
+  - Estatísticas sobre o total de solicitações, atendidas e em espera.
+  - Percentual de cada tipo de atendimento.
+
+## Estrutura do Projeto
+
+- **`Client.java`**: Representa um cliente, com métodos para formatar nome e número, e gerenciar solicitações.
+- **`Request.java`**: Representa uma solicitação de atendimento, com descrição e categoria.
+- **`Service.java`**: Gerencia a fila de atendimento, clientes e pedidos, além de fornecer métodos para operações do sistema.
+- **`App.java`**: Classe principal para demonstração das funcionalidades.
+
+## Como Executar
+
+1. Certifique-se de ter o Java instalado em sua máquina.
+2. Clone o repositório ou copie os arquivos para o seu ambiente de desenvolvimento.
+3. Compile e execute a classe `App.java`:
+   ```bash
+   javac fila_atendimento/*.java
+   java fila_atendimento.App
