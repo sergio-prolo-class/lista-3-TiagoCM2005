@@ -61,11 +61,3 @@ Este projeto implementa um sistema de gerenciamento de fila de atendimento em Ja
 - **`Service.java`**: Gerencia a fila de atendimento, clientes e pedidos, além de fornecer métodos para operações do sistema.
 - **`App.java`**: Classe principal para demonstração das funcionalidades.
 
-## Como Executar
-
-1. Certifique-se de ter o Java instalado em sua máquina.
-2. Clone o repositório ou copie os arquivos para o seu ambiente de desenvolvimento.
-3. Compile e execute a classe `App.java`:
-   ```bash
-   javac fila_atendimento/*.java
-   java fila_atendimento.App
