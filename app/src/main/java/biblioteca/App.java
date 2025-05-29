@@ -1,6 +1,6 @@
 package biblioteca;
 
-public class Biblioteca{
+public class App{
     
     public static void main(String[] args){
         System.out.println("");
