@@ -61,3 +61,99 @@ Este projeto implementa um sistema de gerenciamento de fila de atendimento em Ja
 - **`Service.java`**: Gerencia a fila de atendimento, clientes e pedidos, além de fornecer métodos para operações do sistema.
 - **`App.java`**: Classe principal para demonstração das funcionalidades.
 
+# Sistema de Biblioteca em Java
+
+Este projeto implementa um sistema de gerenciamento de biblioteca em Java, permitindo o cadastro de autores, livros, leitores e o controle de empréstimos.
+
+## Funcionalidades Principais
+
+### Cadastro e Gerenciamento
+- **Autores**: Cadastro com nome e idioma.
+- **Livros**: Registro com título, ISBN, lista de autores e quantidade de cópias.
+- **Leitores**: Cadastro com nome, endereço e telefone, com ID único gerado automaticamente.
+
+### Empréstimos
+- Registro de empréstimos com data.
+- Verificação de disponibilidade de cópias.
+- Limite de 5 empréstimos por leitor.
+- Impedimento de empréstimo duplicado do mesmo livro para o mesmo leitor.
+
+### Consultas e Relatórios
+- Listagem de autores em ordem alfabética.
+- Listagem de livros por título, autor ou ISBN.
+- Consulta de empréstimos por leitor ou por data.
+- Resumo geral com estatísticas da biblioteca.
+
+## Estrutura do Projeto
+
+### Classes Principais
+- **`Autor`**: Representa um autor com nome e idioma.
+- **`Livro`**: Gerencia informações do livro, incluindo disponibilidade e cópias.
+- **`Leitor`**: Armazena dados do leitor e seus empréstimos ativos.
+- **`Emprestimo`**: Registra os detalhes de um empréstimo (leitor, livro, data).
+- **`Biblioteca`**: Classe central que gerencia todas as operações do sistema.
+
+### Classe de Teste
+- **`App`**: Demonstra as funcionalidades do sistema com exemplos práticos.
+
+# Diagrama de Classes do Sistema de Biblioteca
+
+```mermaid
+classDiagram
+    %% Classes principais
+    class Biblioteca {
+        -List~Autor~ autores
+        -List~Livro~ livros
+        -List~Leitor~ leitores
+        -List~Emprestimo~ emprestimos
+        +registraAutor(Autor autor) void
+        +registraLivro(Livro livro) void
+        +registraLeitor(Leitor leitor) void
+        +registrarEmprestimo(int idLeitor, String isbn, LocalDate data) boolean
+        +livros_por_titulos() List~Livro~
+        +mostrarResumo() void
+    }
+
+    class Autor {
+        -String nome
+        -String idioma
+        +getNome() String
+        +setNome(String nome) void
+    }
+
+    class Livro {
+        -String titulo
+        -String isbn
+        -List~Autor~ autores
+        -int total_copias
+        -int copias_emprestadas
+        +verifica_disponivel() boolean
+        +registrar_emprestimo() void
+    }
+
+    class Leitor {
+        -int id
+        -String nome
+        -String endereco
+        -String telefone
+        -List~Emprestimo~ emprestimos
+        +temLivro(Livro book) boolean
+        +emprestimosAtivos() int
+    }
+
+    class Emprestimo {
+        -Leitor leitor
+        -Livro livro
+        -LocalDate data
+        +getData() LocalDate
+    }
+
+    %% Relacionamentos
+    Biblioteca "1" *-- "0..*" Autor
+    Biblioteca "1" *-- "0..*" Livro
+    Biblioteca "1" *-- "0..*" Leitor
+    Biblioteca "1" *-- "0..*" Emprestimo
+    Livro "1" *-- "1..*" Autor : autores
+    Leitor "1" *-- "0..*" Emprestimo : histórico
+    Emprestimo "1" --> "1" Livro : emprestado
+    Emprestimo "1" --> "1" Leitor : solicitante
