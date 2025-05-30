@@ -113,7 +113,7 @@ classDiagram
     Client "1" *-- "0..*" Request : solicitações
     Service "1" o-- "0..*" Client : gerencia
     Service "1" o-- "0..*" Request : fila/atendidos
-    App ..> Service : usa
+    
 
 ---
 
