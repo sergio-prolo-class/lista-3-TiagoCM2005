@@ -32,7 +32,7 @@ Este projeto simula um sistema de login simples utilizando Java. A aplicação p
 
 -  **Autenticação de Usuário**  
   - Verifica se o login e senha informados correspondem a um usuário existente.
-  
+
   # Diagrama de Classes - Sistema de Login
 
 ```mermaid
@@ -72,9 +72,6 @@ classDiagram
     class App {
         <<Main>>
     }
-
----
-
 
 
 # Sistema de Fila de Atendimento
@@ -161,7 +158,7 @@ classDiagram
         <<Main>>
     }
 
----
+
 
 # Sistema de Biblioteca em Java
 
@@ -259,5 +256,3 @@ classDiagram
     Leitor "1" *-- "0..*" Emprestimo : histórico
     Emprestimo "1" --> "1" Livro : emprestado
     Emprestimo "1" --> "1" Leitor : solicitante
-
-    ---
