@@ -44,7 +44,7 @@ public class Leitor {
         emprestimos.add(e);
     }
 
-    public int ativosEmprestimos(){
+    public int emprestimosAtivos(){
         return emprestimos.size();
 
     }
@@ -58,6 +58,6 @@ public class Leitor {
         return false;
     }
 
-    
+
 
 }
