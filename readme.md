@@ -33,9 +33,48 @@ Este projeto simula um sistema de login simples utilizando Java. A aplicação p
 -  **Autenticação de Usuário**  
   - Verifica se o login e senha informados correspondem a um usuário existente.
 
+  # Diagrama de Classes - Sistema de Login
+
+```mermaid
+classDiagram
+    %% Classes principais
+    class Usuario {
+        -String login
+        -String senha
+        +Usuario(String login, String senha)
+        +getLogin() String
+        +getSenha() String
+        -formatLogin(String str) String
+    }
+
+    class Gerenciador {
+        -static List~Usuario~ user
+        +cadastroUser(Usuario user0) void
+        +listUsers() void
+        +removeUser(String login) void
+        +autenticatorUser(String login, String senha) boolean
+        -verificaUser(Usuario user1) boolean
+    }
+
+    class App {
+        +main(String[] args) void
+    }
+
+    %% Relacionamentos
+    Gerenciador "1" *-- "0..*" Usuario : gerencia
+    App ..> Gerenciador : usa
+    App ..> Usuario : cria
+
+    %% Estilos especiais
+    class Gerenciador {
+        <<Singleton>>
+    }
+    class App {
+        <<Main>>
+    }
+```
+
 ---
-
-
 
 # Sistema de Fila de Atendimento
 
@@ -65,7 +104,6 @@ Este projeto implementa um sistema de gerenciamento de fila de atendimento em Ja
 
 # Diagrama de Classes - Sistema de Fila de Atendimento
 
-# Diagrama de Classes - Sistema de Fila de Atendimento
 
 ```mermaid
 classDiagram
@@ -113,8 +151,9 @@ classDiagram
     Client "1" *-- "0..*" Request : solicitações
     Service "1" o-- "0..*" Client : gerencia
     Service "1" o-- "0..*" Request : fila/atendidos
+    App ..> Service : usa
     
-
+  ```
 ---
 
 # Sistema de Biblioteca em Java
@@ -213,5 +252,5 @@ classDiagram
     Leitor "1" *-- "0..*" Emprestimo : histórico
     Emprestimo "1" --> "1" Livro : emprestado
     Emprestimo "1" --> "1" Leitor : solicitante
-
-  
+```
+  ---
