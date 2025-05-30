@@ -65,54 +65,6 @@ Este projeto implementa um sistema de gerenciamento de fila de atendimento em Ja
 
 # Diagrama de Classes - Sistema de Fila de Atendimento
 
-```mermaid
-classDiagram
-    %% Classes principais
-    class Client {
-        -String nome
-        -String numero
-        -List~Request~ solicitacao
-        +Client(String name, String numero)
-        +addRequest(String description, int type) void
-        +getSolicitacao() List~Request~
-        +getNome() String
-        +getNumber() String
-        -formatName(String name) String
-        -formatNumber(String numero) String
-    }
-
-    class Request {
-        -String descricao
-        -String categoria
-        +Request(String descricao, int tipo_atendimento)
-        +getDescricao() String
-        +getCategoria() String
-        -formatService(int tipo_atendimento) String
-    }
-
-    class Service {
-        -static Queue~Request~ fila
-        -static List~Request~ atendidos
-        -static List~Client~ clientes
-        +registroPedidos(String nome, String numero, String descricao, int tipo_atendimento) void
-        +nextCliente() void
-        +atenderCliente() void
-        +pedidosAtendidos() void
-        +pedidosPendentes() void
-        +getRelatorio() void
-        -procuraCliente(String number) Client
-    }
-
-    class App {
-        +main(String[] args) void
-    }
-
-    %% Relacionamentos
-    Client "1" *-- "0..*" Request : solicitações
-    Service "1" o-- "0..*" Client : gerencia
-    Service "1" o-- "0..*" Request : fila/atendidos
-    App ..> Service : usa
-
 
 
 # Sistema de Biblioteca em Java
