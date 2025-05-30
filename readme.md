@@ -32,8 +32,50 @@ Este projeto simula um sistema de login simples utilizando Java. A aplicação p
 
 -  **Autenticação de Usuário**  
   - Verifica se o login e senha informados correspondem a um usuário existente.
+  
+  # Diagrama de Classes - Sistema de Login
+
+```mermaid
+classDiagram
+    %% Classes principais
+    class Usuario {
+        -String login
+        -String senha
+        +Usuario(String login, String senha)
+        +getLogin() String
+        +getSenha() String
+        -formatLogin(String str) String
+    }
+
+    class Gerenciador {
+        -static List~Usuario~ user
+        +cadastroUser(Usuario user0) void
+        +listUsers() void
+        +removeUser(String login) void
+        +autenticatorUser(String login, String senha) boolean
+        -verificaUser(Usuario user1) boolean
+    }
+
+    class App {
+        +main(String[] args) void
+    }
+
+    %% Relacionamentos
+    Gerenciador "1" *-- "0..*" Usuario : gerencia
+    App ..> Gerenciador : usa
+    App ..> Usuario : cria
+
+    %% Estilos especiais
+    class Gerenciador {
+        <<Singleton>>
+    }
+    class App {
+        <<Main>>
+    }
 
 ---
+
+
 
 # Sistema de Fila de Atendimento
 
@@ -60,6 +102,66 @@ Este projeto implementa um sistema de gerenciamento de fila de atendimento em Ja
 - **`Request.java`**: Representa uma solicitação de atendimento, com descrição e categoria.
 - **`Service.java`**: Gerencia a fila de atendimento, clientes e pedidos, além de fornecer métodos para operações do sistema.
 - **`App.java`**: Classe principal para demonstração das funcionalidades.
+
+# Diagrama de Classes - Sistema de Fila de Atendimento
+
+```mermaid
+classDiagram
+    %% Classes principais
+    class Client {
+        -String nome
+        -String numero
+        -List~Request~ solicitacao
+        +Client(String name, String numero)
+        +addRequest(String description, int type) void
+        +getSolicitacao() List~Request~
+        +getNome() String
+        +getNumber() String
+        -formatName(String name) String
+        -formatNumber(String numero) String
+    }
+
+    class Request {
+        -String descricao
+        -String categoria
+        +Request(String descricao, int tipo_atendimento)
+        +getDescricao() String
+        +getCategoria() String
+        -formatService(int tipo_atendimento) String
+    }
+
+    class Service {
+        -static Queue~Request~ fila
+        -static List~Request~ atendidos
+        -static List~Client~ clientes
+        +registroPedidos(String nome, String numero, String descricao, int tipo_atendimento) void
+        +nextCliente() void
+        +atenderCliente() void
+        +pedidosAtendidos() void
+        +pedidosPendentes() void
+        +getRelatorio() void
+        -procuraCliente(String number) Client
+    }
+
+    class App {
+        +main(String[] args) void
+    }
+
+    %% Relacionamentos
+    Client "1" *-- "0..*" Request : solicitações
+    Service "1" o-- "0..*" Client : gerencia
+    Service "1" o-- "0..*" Request : fila/atendidos
+    App ..> Service : usa
+
+    %% Estilos para diferenciar tipos
+    class Service {
+        <<Singleton>>
+    }
+    class App {
+        <<Main>>
+    }
+
+---
 
 # Sistema de Biblioteca em Java
 
@@ -157,3 +259,5 @@ classDiagram
     Leitor "1" *-- "0..*" Emprestimo : histórico
     Emprestimo "1" --> "1" Livro : emprestado
     Emprestimo "1" --> "1" Leitor : solicitante
+
+    ---
