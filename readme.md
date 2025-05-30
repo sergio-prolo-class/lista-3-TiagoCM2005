@@ -113,14 +113,6 @@ classDiagram
     Service "1" o-- "0..*" Request : fila/atendidos
     App ..> Service : usa
 
-    %% Estilos para diferenciar tipos
-    class Service {
-        <<Singleton>>
-    }
-    class App {
-        <<Main>>
-    }
-
 
 
 # Sistema de Biblioteca em Java
